@@ -14,7 +14,13 @@ class AssignmentManagerViewModel : ViewModel() {
     fun addAssignment(name: String, classCode: String, dueDate: String, points: String) {
         if (name.isBlank() || classCode.isBlank() || dueDate.isBlank() || points.isBlank()) return
 
-        val newAssignment = AssignmentDetails(name, classCode, dueDate, points)
+        val newAssignment = AssignmentDetails(name = name, classCode = classCode, dueDate = dueDate, points = points)
         _assignments.update { it + newAssignment }
+    }
+
+    fun deleteAssignment(assignmentId: String) {
+        _assignments.update { currentList ->
+            currentList.filterNot { it.id == assignmentId }
+        }
     }
 }
