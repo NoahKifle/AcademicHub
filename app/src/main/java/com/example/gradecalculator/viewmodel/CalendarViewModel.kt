@@ -1,8 +1,8 @@
-package com.example.academichub.viewmodel
+package com.example.gradecalculator.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.example.academichub.model.AssignmentDetails
-import com.example.academichub.model.CalendarDetails
+import com.example.gradecalculator.model.AssignmentDetails
+import com.example.gradecalculator.model.CalendarDetails
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

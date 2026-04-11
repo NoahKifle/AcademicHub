@@ -1,4 +1,4 @@
-package com.example.academichub.model
+package com.example.gradecalculator.model
 
 import java.util.Calendar
 import java.util.UUID

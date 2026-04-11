@@ -1,4 +1,4 @@
-package com.example.academichub.theme
+package com.example.gradecalculator.theme
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -19,8 +19,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.academichub.model.CalendarDetails
-import com.example.academichub.viewmodel.CalendarViewModel
+import com.example.gradecalculator.model.CalendarDetails
+import com.example.gradecalculator.viewmodel.CalendarViewModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
