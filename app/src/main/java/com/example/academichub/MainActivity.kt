@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.academichub.databinding.ActivityMainBinding
+import com.example.academichub.R
 
 
 class MainActivity : AppCompatActivity() {
