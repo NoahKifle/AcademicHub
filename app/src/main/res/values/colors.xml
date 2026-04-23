@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary Palette: Deep Navy + Electric Teal + Warm Amber -->
+    <color name="navy_900">#0D1B2A</color>
+    <color name="navy_800">#1B2D3E</color>
+    <color name="navy_700">#243447</color>
+    <color name="navy_600">#2E4057</color>
+
+    <color name="teal_400">#2EC4B6</color>
+    <color name="teal_300">#4DD9CC</color>
+    <color name="teal_200">#80E8DF</color>
+    <color name="teal_100">#C5F5F1</color>
+
+    <color name="amber_400">#F4A261</color>
+    <color name="amber_300">#F7B982</color>
+    <color name="amber_200">#FAD0A8</color>
+
+    <color name="coral_400">#E76F51</color>
+    <color name="coral_300">#EC8E77</color>
+
+    <color name="green_400">#52B788</color>
+    <color name="green_300">#74C69D</color>
+
+    <!-- Neutrals -->
+    <color name="white">#FFFFFF</color>
+    <color name="surface_light">#F0F4F8</color>
+    <color name="surface_card">#FFFFFF</color>
+    <color name="text_primary">#0D1B2A</color>
+    <color name="text_secondary">#546E7A</color>
+    <color name="text_hint">#90A4AE</color>
+    <color name="divider">#E0E8EE</color>
+
+    <!-- Semantic -->
+    <color name="grade_a">#52B788</color>
+    <color name="grade_b">#2EC4B6</color>
+    <color name="grade_c">#F4A261</color>
+    <color name="grade_d">#E76F51</color>
+    <color name="overdue_red">#E63946</color>
+    <color name="badge_gold">#FFD166</color>
+</resources>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardBackgroundColor="@color/surface_card"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="0dp"
+    app:strokeColor="@color/divider"
+    app:strokeWidth="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal" android:gravity="center_vertical">
+
+            <LinearLayout android:layout_width="0dp" android:layout_weight="1"
+                android:layout_height="wrap_content" android:orientation="vertical">
+                <TextView android:id="@+id/tv_gc_course_name" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" tools:text="Mobile Programming"
+                    android:textStyle="bold" android:textSize="16sp" android:textColor="@color/text_primary" />
+                <TextView android:id="@+id/tv_gc_course_code" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" tools:text="CSC 3410"
+                    android:textSize="12sp" android:textColor="@color/text_secondary" android:layout_marginTop="1dp" />
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:orientation="vertical" android:gravity="end">
+                <TextView android:id="@+id/tv_gc_letter" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" tools:text="A"
+                    android:textStyle="bold" android:textSize="28sp" android:textColor="@color/grade_a" />
+                <TextView android:id="@+id/tv_gc_pct" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" tools:text="92.4%"
+                    android:textStyle="bold" android:textSize="12sp" android:textColor="@color/text_secondary" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View android:layout_width="match_parent" android:layout_height="1dp"
+            android:background="@color/divider" android:layout_marginTop="12dp" android:layout_marginBottom="12dp" />
+
+        <LinearLayout
+            android:id="@+id/ll_categories"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include layout="@layout/item_grade_category_row"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp" />
+            <include layout="@layout/item_grade_category_row"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp" />
+            <include layout="@layout/item_grade_category_row"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp" />
+            <include layout="@layout/item_grade_category_row"
+                android:layout_width="match_parent" android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

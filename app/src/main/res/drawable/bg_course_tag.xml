@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- bg_course_tag.xml — small rounded pill for the course label inside assignment rows -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="#1A2EC4B6" />
+    <corners android:radius="4dp" />
+</shape>

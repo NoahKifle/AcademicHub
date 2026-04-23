@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@color/surface_light">
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar android:id="@+id/toolbar_grades"
+            android:layout_width="match_parent" android:layout_height="?attr/actionBarSize"
+            android:background="@color/navy_900" app:title="Grade Tracker"
+            app:titleTextColor="@color/white" />
+
+        <!-- Semester GPA card -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginStart="16dp" android:layout_marginEnd="16dp" android:layout_marginTop="16dp"
+            app:cardBackgroundColor="@color/navy_800" app:cardCornerRadius="16dp"
+            app:cardElevation="0dp" app:strokeWidth="0dp">
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:padding="20dp">
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="SEMESTER GPA" android:textStyle="bold" android:textSize="11sp"
+                    android:textColor="#80B0CC" android:letterSpacing="0.1" />
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginTop="4dp">
+
+                    <TextView android:id="@+id/tv_semester_gpa" android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" tools:text="3.74"
+                        android:textStyle="bold" android:textSize="52sp" android:textColor="@color/teal_300" />
+
+                    <LinearLayout android:layout_width="0dp" android:layout_weight="1"
+                        android:layout_height="wrap_content" android:orientation="vertical"
+                        android:layout_marginStart="24dp">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="Target" android:textSize="12sp" android:textColor="#80B0CC" />
+                        <TextView android:id="@+id/tv_gpa_target_grade" android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" tools:text="3.80"
+                            android:textStyle="bold" android:textSize="26sp" android:textColor="@color/amber_400" />
+                        <TextView android:id="@+id/tv_gpa_distance" android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" tools:text="+0.06 to go"
+                            android:textSize="12sp" android:textColor="@color/green_300" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <ProgressBar android:id="@+id/pb_gpa_target"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent" android:layout_height="7dp"
+                    android:max="400" android:progress="374"
+                    android:progressDrawable="@drawable/progress_teal_rounded" android:layout_marginTop="12dp" />
+
+                <TextView android:id="@+id/tv_gpa_progress_label" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" tools:text="98% of the way to your 3.80 goal"
+                    android:textSize="12sp" android:textColor="#80B0CC" android:layout_marginTop="4dp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="COURSE GRADES" android:textSize="12sp" android:textColor="@color/text_secondary"
+            android:textAllCaps="true" android:textStyle="bold" android:letterSpacing="0.08"
+            android:layout_marginStart="24dp" android:layout_marginTop="24dp" android:layout_marginBottom="8dp" />
+
+        <LinearLayout android:id="@+id/ll_grade_courses" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:orientation="vertical"
+            android:paddingStart="16dp" android:paddingEnd="16dp" />
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="WHAT-IF CALCULATOR" android:textSize="12sp" android:textColor="@color/text_secondary"
+            android:textAllCaps="true" android:textStyle="bold" android:letterSpacing="0.08"
+            android:layout_marginStart="24dp" android:layout_marginTop="16dp" android:layout_marginBottom="8dp" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginStart="16dp" android:layout_marginEnd="16dp" android:layout_marginBottom="24dp"
+            app:cardBackgroundColor="@color/surface_card" app:cardCornerRadius="16dp"
+            app:cardElevation="0dp" app:strokeColor="@color/divider" app:strokeWidth="1dp">
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:padding="16dp">
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Simulate how a new grade will affect your GPA"
+                    android:textSize="13sp" android:textColor="@color/text_secondary" android:layout_marginBottom="12dp" />
+
+                <com.google.android.material.textfield.TextInputLayout android:id="@+id/til_calc_course"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:hint="Select Course" app:boxStrokeColor="@color/teal_400"
+                    app:hintTextColor="@color/teal_400">
+                    <AutoCompleteTextView android:id="@+id/act_calc_course"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:inputType="none" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout android:id="@+id/til_new_grade"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:hint="Hypothetical Grade (%)" android:layout_marginTop="8dp"
+                    app:boxStrokeColor="@color/teal_400" app:hintTextColor="@color/teal_400">
+                    <com.google.android.material.textfield.TextInputEditText android:id="@+id/et_new_grade"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:inputType="numberDecimal" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.button.MaterialButton android:id="@+id/btn_calculate"
+                    android:layout_width="match_parent" android:layout_height="48dp"
+                    android:text="Calculate New GPA" android:textStyle="bold" android:textSize="14sp"
+                    android:layout_marginTop="12dp" app:backgroundTint="@color/teal_400" app:cornerRadius="12dp" />
+
+                <TextView android:id="@+id/tv_calc_result" android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:visibility="gone"
+                    android:textStyle="bold" android:textSize="16sp" android:textColor="@color/teal_400"
+                    android:gravity="center" android:layout_marginTop="12dp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
