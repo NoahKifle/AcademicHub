@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- filter_chip_bg.xml — chip background changes between checked and unchecked states -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Checked: teal fill -->
+    <item android:state_checked="true">
+        <shape android:shape="rectangle">
+            <solid android:color="#2EC4B6" />
+            <corners android:radius="20dp" />
+        </shape>
+    </item>
+    <!-- Default: white with border -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#FFFFFF" />
+            <stroke android:width="1dp" android:color="#E0E8EE" />
+            <corners android:radius="20dp" />
+        </shape>
+    </item>
+</selector>
