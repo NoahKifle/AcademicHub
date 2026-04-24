@@ -1,7 +1,5 @@
 package com.example.gradecalculator.ui.theme
 
-import android.content.Intent
-import android.widget.Button
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -9,8 +7,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedTextField
@@ -23,53 +19,34 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.gradecalculator.MainActivity
-import com.example.gradecalculator.MainActivity2
-import com.example.gradecalculator.R
 
-@Preview
+
 @Composable
-private fun TextFieldPreview(){
-    TextField()
+fun TextField3(){
 
-}
-data class GradeItem(
-    val name: String,
-    val grade: Double,
-    val weight: Double
-)
-@Composable
-fun TextField() {
-    val context = LocalContext.current
-
-    var assignmentNames = remember {
-        mutableStateListOf("","","")
+    var courseNames = remember {
+        mutableStateListOf("")
     }
     var grades = remember {
-        mutableStateListOf("","","")
+        mutableStateListOf("")
     }
-    var weights = remember {
-        mutableStateListOf("","","")
+    var credits = remember {
+        mutableStateListOf("")
     }
-    val gradeItems= remember { mutableStateListOf<GradeItem>() }
-    var finalGrade by remember { mutableStateOf(0.0) }
-    var count by remember { mutableStateOf(0) }
+    var gpa by remember { mutableStateOf(0.0) }
 
     Row(horizontalArrangement = Arrangement.spacedBy(50.dp)) {
         LazyColumn(
             verticalArrangement = Arrangement.spacedBy(20.dp),
             contentPadding = PaddingValues(bottom = 20.dp, top = 10.dp)
         ) {
-            items(3 + count) { i ->
+            items(courseNames.size) { i ->
 
                 OutlinedTextField(
-                    value = assignmentNames[i],
+                    value = courseNames[i],
                     onValueChange = { text ->
-                        assignmentNames[i] = text
+                        courseNames[i] = text
                         println(text)
                     },
                     modifier = Modifier
@@ -85,7 +62,7 @@ fun TextField() {
             verticalArrangement = Arrangement.spacedBy(20.dp),
             contentPadding = PaddingValues(bottom = 20.dp, top = 10.dp)
         ) {
-            items(3 + count) { i ->
+            items(courseNames.size) { i ->
 
                 OutlinedTextField(
                     value = grades[i],
@@ -107,12 +84,12 @@ fun TextField() {
             contentPadding = PaddingValues(bottom = 20.dp, top = 10.dp)
 
         ) {
-            items(3 + count) { i ->
+            items(courseNames.size) { i ->
 
                 OutlinedTextField(
-                    value = weights[i],
+                    value = credits[i],
                     onValueChange = { text ->
-                        weights[i] = text
+                        credits[i] = text
 
                     },
                     modifier = Modifier
@@ -130,11 +107,11 @@ fun TextField() {
     Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.fillMaxWidth()
         .padding(top = 20.dp)) {
         Button(onClick ={
-            if (count < 5) {
-                count++
+            if (courseNames.size < 5) {
+
                 grades.add("")
-                weights.add("")
-                assignmentNames.add("")
+                credits.add("")
+                courseNames.add("")
             }else {
                 println("too many rows")
             }
@@ -146,21 +123,37 @@ fun TextField() {
     Row(horizontalArrangement = Arrangement.Start, modifier = Modifier.fillMaxWidth()
         .padding(top = 20.dp)) {
         Button(onClick ={
-            gradeItems.clear()
-            var totalWeighted = 0.0
-            var totalWeight = 0.0
-            for(i in grades.indices) {
-                val g = grades[i].toDoubleOrNull()
-                val w = weights[i].toDoubleOrNull()
-                val name  = assignmentNames[i]
 
-                if(g != null && w!=null&&name.isNotBlank()) {
-                    gradeItems.add(GradeItem(name, g, w))
-                    totalWeighted += g * w
-                    totalWeight += w
+
+            var totalcredits = 0.0
+            var totalgradepoints = 0.0
+            for(i in grades.indices) {
+                val g = grades[i]
+                val c = credits[i].toDoubleOrNull() ?:0.0
+
+
+                if (g == "A" || g == "a"){
+                    totalgradepoints += (4 * c)
+                }else if(g == "B" || g == "b"){
+                    totalgradepoints += (3 *c)
+                }else if(g == "C" || g == "c"){
+                    totalgradepoints += (2*c)
+                }else if(g == "D" || g == "d"){
+                    totalgradepoints += (1*c)
+                }else if(g == "F" || g == "f"){
+                    totalgradepoints += (0*c)
                 }
+                totalcredits += c
+
+
+
+
+
+
             }
-            finalGrade = totalWeighted/ totalWeight
+            gpa = (totalgradepoints/totalcredits)
+
+
 
 
         },colors = ButtonDefaults.buttonColors(Color.Black)) {
@@ -169,10 +162,10 @@ fun TextField() {
 
         LazyColumn(modifier = Modifier.padding(top = 20.dp)
             .padding(start = 20.dp)) {
-            items(gradeItems.size) {i ->
-                val item = gradeItems[i]
+            items(grades.size) {i ->
+
                 Text(
-                    text = "${item.name}: Grade ${item.grade}, Weight ${item.weight}"
+                    text = "${courseNames[i]}: Grade ${grades[i]}, Credits ${credits[i]}"
                 )
             }
 
@@ -192,22 +185,8 @@ fun TextField() {
     }
     Row(horizontalArrangement = Arrangement.Start, modifier = Modifier.fillMaxWidth()){
         Text(
-            text = "Final Grade: ${finalGrade}"
+            text = "GPA: ${gpa}"
 
         )
     }
-    Row(horizontalArrangement = Arrangement.End, modifier = Modifier.fillMaxWidth()
-        .padding(top=20.dp)){
-        Button(onClick={
-            val intent = Intent(context, MainActivity2::class.java)
-            intent.putExtra("FINAL_GRADE", finalGrade)
-            context.startActivity(intent)
-
-        }, colors = ButtonDefaults.buttonColors(Color.Black)) {
-            Text(text = "final grade calculator",color = Color.Green)
-        }
-    }
-
-
-
 }
