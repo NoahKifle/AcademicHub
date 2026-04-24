@@ -23,6 +23,7 @@ import com.example.academichub.databinding.FragmentAssignmentsBinding
 import com.example.academichub.databinding.ItemAssignmentDetailCardBinding
 import com.example.academichub.model.AssignmentDetails
 import com.example.academichub.viewmodel.AssignmentManagerViewModel
+import com.example.academichub.viewmodel.AssignmentViewModelFactory
 import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
@@ -32,7 +33,9 @@ class AssignmentsFragment : Fragment() {
     private var _binding: FragmentAssignmentsBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: AssignmentManagerViewModel by activityViewModels()
+    private val viewModel: AssignmentManagerViewModel by activityViewModels {
+        AssignmentViewModelFactory((requireActivity().application as AcademicHubApplication).repository)
+    }
     private lateinit var adapter: AssignmentAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -143,6 +146,14 @@ class AssignmentsFragment : Fragment() {
                 if (assignment == null) {
                     viewModel.addAssignment(name, classCode, dueDate, points, type)
                 } else {
+                    // Update existing assignment fields
+                    val updated = assignment.copy(
+                        name = name,
+                        classCode = classCode,
+                        dueDate = dueDate,
+                        points = points,
+                        assignmentType = type
+                    )
                     viewModel.deleteAssignment(assignment.id)
                     viewModel.addAssignment(name, classCode, dueDate, points, type)
                 }

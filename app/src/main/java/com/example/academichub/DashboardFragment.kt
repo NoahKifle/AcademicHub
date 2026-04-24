@@ -15,6 +15,7 @@ import com.example.academichub.databinding.ItemQuickStatBinding
 import com.example.academichub.ui.theme.AcademicHubTheme
 import com.example.academichub.ui.theme.CalendarScreen
 import com.example.academichub.viewmodel.AssignmentManagerViewModel
+import com.example.academichub.viewmodel.AssignmentViewModelFactory
 import com.example.academichub.viewmodel.CalendarViewModel
 import com.google.android.material.chip.Chip
 import kotlinx.coroutines.launch
@@ -26,7 +27,9 @@ class DashboardFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val calendarViewModel: CalendarViewModel by activityViewModels()
-    private val assignmentViewModel: AssignmentManagerViewModel by activityViewModels()
+    private val assignmentViewModel: AssignmentManagerViewModel by activityViewModels {
+        AssignmentViewModelFactory((requireActivity().application as AcademicHubApplication).repository)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?

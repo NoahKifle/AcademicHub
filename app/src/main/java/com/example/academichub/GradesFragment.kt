@@ -14,6 +14,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.academichub.databinding.FragmentGradesBinding
 import com.example.academichub.viewmodel.AssignmentManagerViewModel
+import com.example.academichub.viewmodel.AssignmentViewModelFactory
 import kotlinx.coroutines.launch
 
 class GradesFragment : Fragment() {
@@ -21,7 +22,9 @@ class GradesFragment : Fragment() {
     private var _binding: FragmentGradesBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: AssignmentManagerViewModel by activityViewModels()
+    private val viewModel: AssignmentManagerViewModel by activityViewModels {
+        AssignmentViewModelFactory((requireActivity().application as AcademicHubApplication).repository)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentGradesBinding.inflate(inflater, container, false)
