@@ -34,7 +34,8 @@ class AssignmentsFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: AssignmentManagerViewModel by activityViewModels {
-        AssignmentViewModelFactory((requireActivity().application as AcademicHubApplication).repository)
+        val app = requireActivity().application as AcademicHubApplication
+        AssignmentViewModelFactory(app, app.repository)
     }
     private lateinit var adapter: AssignmentAdapter
 

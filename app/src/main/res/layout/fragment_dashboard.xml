@@ -19,7 +19,7 @@
             android:paddingTop="52dp" android:paddingBottom="32dp">
 
             <TextView android:id="@+id/tv_greeting" android:layout_width="0dp"
-                android:layout_height="wrap_content" android:text="Hello, Noah 👋"
+                android:layout_height="wrap_content" android:text="Hello, User 👋"
                 android:textStyle="bold" android:textSize="24sp" android:textColor="@color/white"
                 app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/iv_avatar" />
@@ -54,7 +54,7 @@
                         android:text="GPA" android:textStyle="bold" android:textSize="11sp"
                         android:textColor="#80B0CC" android:letterSpacing="0.1" />
                     <TextView android:id="@+id/tv_gpa" android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:text="3.74"
+                        android:layout_height="wrap_content" android:text="0.00"
                         android:textStyle="bold" android:textSize="38sp" android:textColor="@color/teal_300" />
                 </LinearLayout>
 
@@ -71,7 +71,7 @@
                         android:text="TARGET" android:textStyle="bold" android:textSize="11sp"
                         android:textColor="#80B0CC" android:letterSpacing="0.1" />
                     <TextView android:id="@+id/tv_target_gpa" android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:text="3.80"
+                        android:layout_height="wrap_content" android:text="0.00"
                         android:textStyle="bold" android:textSize="38sp" android:textColor="@color/amber_300" />
                 </LinearLayout>
 
@@ -84,13 +84,13 @@
                         android:text="SEMESTER" android:textStyle="bold" android:textSize="11sp"
                         android:textColor="#80B0CC" android:letterSpacing="0.1" />
                     <TextView android:id="@+id/tv_semester_pct" android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:text="62%"
+                        android:layout_height="wrap_content" android:text="0%"
                         android:textStyle="bold" android:textSize="22sp" android:textColor="@color/white"
                         android:layout_marginTop="2dp" />
                     <ProgressBar android:id="@+id/pb_semester"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="match_parent" android:layout_height="6dp"
-                        android:max="100" android:progress="62"
+                        android:max="100" android:progress="0"
                         android:progressDrawable="@drawable/progress_teal" android:layout_marginTop="4dp" />
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>

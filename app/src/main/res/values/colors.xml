@@ -37,4 +37,6 @@
     <color name="grade_d">#E76F51</color>
     <color name="overdue_red">#E63946</color>
     <color name="badge_gold">#FFD166</color>
+
+    <color name="bg_color">#F0F4F8</color>
 </resources>

@@ -17,9 +17,12 @@ import com.example.academichub.ui.theme.CalendarScreen
 import com.example.academichub.viewmodel.AssignmentManagerViewModel
 import com.example.academichub.viewmodel.AssignmentViewModelFactory
 import com.example.academichub.viewmodel.CalendarViewModel
+import com.example.academichub.viewmodel.SettingsViewModel
+import com.example.academichub.viewmodel.SettingsViewModelFactory
 import com.google.android.material.chip.Chip
 import kotlinx.coroutines.launch
-import java.util.Calendar
+import java.text.SimpleDateFormat
+import java.util.*
 
 class DashboardFragment : Fragment() {
 
@@ -28,7 +31,11 @@ class DashboardFragment : Fragment() {
 
     private val calendarViewModel: CalendarViewModel by activityViewModels()
     private val assignmentViewModel: AssignmentManagerViewModel by activityViewModels {
-        AssignmentViewModelFactory((requireActivity().application as AcademicHubApplication).repository)
+        val app = requireActivity().application as AcademicHubApplication
+        AssignmentViewModelFactory(app, app.repository)
+    }
+    private val settingsViewModel: SettingsViewModel by activityViewModels {
+        SettingsViewModelFactory((requireActivity().application as AcademicHubApplication).settingsRepository)
     }
 
     override fun onCreateView(
@@ -41,11 +48,7 @@ class DashboardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         
-        // Reset GPA Card - in a real app these would come from a GradeViewModel
-        binding.tvGpa.text = "0.00"
-        binding.tvTargetGpa.text = "0.00"
-        binding.tvSemesterPct.text = "0%"
-        binding.pbSemester.progress = 0
+        setupStatTiles()
 
         binding.composeViewCalendar.apply {
             setContent {
@@ -65,12 +68,53 @@ class DashboardFragment : Fragment() {
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
+            settingsViewModel.userSettings.collect { settings ->
+                settings?.let {
+                    binding.tvGreeting.text = if (it.userName.isNotEmpty()) "Hello, ${it.userName} 👋" else "Hello 👋"
+                    binding.tvGpa.text = "%.2f".format(it.currentGpa)
+                    binding.tvTargetGpa.text = "%.2f".format(it.targetGpa)
+                    
+                    updateSemesterProgress(it.semesterStartDate, it.semesterEndDate)
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
             calendarViewModel.selectedDate.collect { date ->
                 updateUIWithDate(date, assignmentViewModel.assignments.value)
             }
         }
+    }
 
-        populateQuickStats()
+    private fun updateSemesterProgress(startDateStr: String, endDateStr: String) {
+        if (startDateStr.isEmpty() || endDateStr.isEmpty()) {
+            binding.tvSemesterPct.text = "0%"
+            binding.pbSemester.progress = 0
+            return
+        }
+
+        try {
+            val sdf = SimpleDateFormat("MM/dd/yy", Locale.US)
+            val startDate = sdf.parse(startDateStr)
+            val endDate = sdf.parse(endDateStr)
+            val today = Calendar.getInstance().time
+
+            if (startDate != null && endDate != null) {
+                val totalDuration = endDate.time - startDate.time
+                val elapsed = today.time - startDate.time
+
+                val progress = if (totalDuration > 0) {
+                    ((elapsed.toDouble() / totalDuration.toDouble()) * 100).toInt()
+                } else 0
+
+                val clampedProgress = progress.coerceIn(0, 100)
+                binding.tvSemesterPct.text = "$clampedProgress%"
+                binding.pbSemester.progress = clampedProgress
+            }
+        } catch (e: Exception) {
+            binding.tvSemesterPct.text = "0%"
+            binding.pbSemester.progress = 0
+        }
     }
 
     private fun updateUIWithDate(date: Calendar, assignments: List<com.example.academichub.model.AssignmentDetails>) {
@@ -84,38 +128,44 @@ class DashboardFragment : Fragment() {
         populateUpcoming(filtered)
     }
 
-    private fun populateQuickStats() {
-        setupStatTile(
-            statBinding  = binding.statCourses,
-            iconRes      = R.drawable.ic_book,
-            iconBgTint   = R.color.teal_100,
-            iconTint     = R.color.teal_400,
-            value        = "0",
-            label        = "Courses"
-        )
-        setupStatTile(
-            statBinding  = binding.statDue,
-            iconRes      = R.drawable.ic_calendar_small,
-            iconBgTint   = R.color.amber_200,
-            iconTint     = R.color.amber_400,
-            value        = "0",
-            label        = "Due Soon"
-        )
-        setupStatTile(
-            statBinding  = binding.statHours,
-            iconRes      = R.drawable.ic_timer_small,
-            iconBgTint   = R.color.teal_100,
-            iconTint     = R.color.teal_400,
-            value        = "0.0",
-            label        = "Hrs This Week"
-        )
+    private fun setupStatTiles() {
+        setupStatTile(binding.statCourses, R.drawable.ic_book, R.color.teal_100, R.color.teal_400, "0", "Courses")
+        setupStatTile(binding.statDue, R.drawable.ic_calendar_small, R.color.amber_200, R.color.amber_400, "0", "Due Soon")
+        setupStatTile(binding.statHours, R.drawable.ic_timer_small, R.color.teal_100, R.color.teal_400, "0.0", "Hrs This Week")
     }
 
     private fun updateQuickStats(assignments: List<com.example.academichub.model.AssignmentDetails>) {
-        val dueSoon = assignments.count { !it.isDone }
+        val sdf = SimpleDateFormat("MM/dd/yy", Locale.US)
+        val now = Calendar.getInstance().apply {
+            set(Calendar.HOUR_OF_DAY, 0)
+            set(Calendar.MINUTE, 0)
+            set(Calendar.SECOND, 0)
+            set(Calendar.MILLISECOND, 0)
+        }
+        val todayStr = sdf.format(now.time)
+        
+        // Count anything due in the next 3 days that isn't done (including overdue items)
+        val upcomingLimit = Calendar.getInstance().apply {
+            time = now.time
+            add(Calendar.DAY_OF_YEAR, 3)
+        }
+
+        val dueSoon = assignments.count { assignment ->
+            if (assignment.isDone) return@count false
+            if (assignment.dueDate == todayStr) return@count true
+            try {
+                val dueDate = sdf.parse(assignment.dueDate)
+                if (dueDate != null) {
+                    val dueCal = Calendar.getInstance().apply { time = dueDate }
+                    dueCal.before(upcomingLimit)
+                } else false
+            } catch (e: Exception) {
+                false
+            }
+        }
+        
         val totalSeconds = assignments.sumOf { it.timeSpent }
         val hours = totalSeconds / 3600.0
-        
         val courseCount = assignments.map { it.classCode }.distinct().size
 
         binding.statCourses.tvStatValue.text = courseCount.toString()
@@ -126,18 +176,20 @@ class DashboardFragment : Fragment() {
     private fun populateCourses(assignments: List<com.example.academichub.model.AssignmentDetails>) {
         binding.llCourses.removeAllViews()
         val inflater = LayoutInflater.from(requireContext())
-        val uniqueCourses = assignments.map { it.classCode }.distinct()
+        //make sure the class codes recognize its the same even when its lowercase and uppercase
+        val uniqueCourses = assignments.map { it.classCode.uppercase() }.distinct()
 
         uniqueCourses.forEach { courseCode ->
             val card = inflater.inflate(R.layout.item_course_card, binding.llCourses, false)
             card.findViewById<TextView>(R.id.tv_course_name).text = "Course: $courseCode"
             card.findViewById<TextView>(R.id.tv_course_code).text = courseCode
             
-            // Calculate course grade based on assignments
             val courseAssignments = assignments.filter { it.classCode == courseCode && it.isDone && it.earnedPoints.isNotEmpty() }
+
+            //I feel like this part looks weird but we can fix it before we finally turn it in
             val totalEarned = courseAssignments.sumOf { it.earnedPoints.toDoubleOrNull() ?: 0.0 }
             val totalPossible = courseAssignments.sumOf { it.points.toDoubleOrNull() ?: 0.0 }
-            
+
             val gradePct = if (totalPossible > 0) (totalEarned / totalPossible) * 100 else 0.0
             val letter = getLetterGrade(gradePct)
 

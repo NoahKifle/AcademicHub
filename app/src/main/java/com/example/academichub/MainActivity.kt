@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import com.example.academichub.databinding.ActivityMainBinding
 import com.example.academichub.R
 
-
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
@@ -16,7 +15,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Load the default fragment on first launch
         if (savedInstanceState == null) {
             loadFragment(DashboardFragment())
         }
@@ -30,6 +28,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_dashboard   -> DashboardFragment()
                 R.id.nav_grades      -> GradesFragment()
                 R.id.nav_assignments -> AssignmentsFragment()
+                R.id.nav_settings    -> SettingsFragment()
                 else                 -> return@setOnItemSelectedListener false
             }
             loadFragment(fragment)

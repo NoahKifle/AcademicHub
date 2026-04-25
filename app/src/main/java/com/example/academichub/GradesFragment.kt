@@ -1,5 +1,6 @@
 package com.example.academichub
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,7 +24,8 @@ class GradesFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: AssignmentManagerViewModel by activityViewModels {
-        AssignmentViewModelFactory((requireActivity().application as AcademicHubApplication).repository)
+        val app = requireActivity().application as AcademicHubApplication
+        AssignmentViewModelFactory(app, app.repository)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -41,12 +43,13 @@ class GradesFragment : Fragment() {
                 setupCalculator(assignments)
             }
         }
+        
+        setupCalculateButton()
     }
 
     private fun populateGradesUI(assignments: List<com.example.academichub.model.AssignmentDetails>) {
         val uniqueCourses = assignments.map { it.classCode }.distinct()
-        
-        // Calculate Semester GPA (Simple average for now)
+
         var totalPointsPossible = 0.0
         var totalPointsEarned = 0.0
         
@@ -126,14 +129,9 @@ class GradesFragment : Fragment() {
 
     private fun setupCalculateButton() {
         binding.btnCalculate.setOnClickListener {
-            val newGrade = binding.etNewGrade.text?.toString()?.trim()?.toDoubleOrNull()
-            if (newGrade == null) {
-                binding.tvCalcResult.visibility = View.VISIBLE
-                binding.tvCalcResult.text = "Enter a hypothetical grade"
-                return@setOnClickListener
-            }
-            binding.tvCalcResult.visibility = View.VISIBLE
-            binding.tvCalcResult.text = "Calculator updated with real data!"
+            // Launch the new calculator
+            val intent = Intent(requireContext(), MainActivity3::class.java)
+            startActivity(intent)
         }
     }
 
