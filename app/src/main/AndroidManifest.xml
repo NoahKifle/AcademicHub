@@ -24,9 +24,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".MainActivity2" />
-        <activity android:name=".MainActivity3" />
-
         <receiver
             android:name=".notifications.NotificationReceiver"
             android:enabled="true"

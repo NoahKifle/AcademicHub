@@ -45,6 +45,7 @@ class GradesFragment : Fragment() {
         setupCalculateButton()
     }
 
+    //
     private fun populateGradesUI(assignments: List<com.example.academichub.model.AssignmentDetails>) {
         val uniqueCourses = assignments.map { it.classCode }.distinct()
 

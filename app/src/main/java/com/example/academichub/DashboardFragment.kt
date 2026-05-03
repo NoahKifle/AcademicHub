@@ -186,7 +186,7 @@ class DashboardFragment : Fragment() {
             
             val courseAssignments = assignments.filter { it.classCode == courseCode && it.isDone && it.earnedPoints.isNotEmpty() }
 
-            //I feel like this part looks weird but we can fix it before we finally turn it in
+
             val totalEarned = courseAssignments.sumOf { it.earnedPoints.toDoubleOrNull() ?: 0.0 }
             val totalPossible = courseAssignments.sumOf { it.points.toDoubleOrNull() ?: 0.0 }
 
