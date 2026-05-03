@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AcademicHub</string>
+    <string name="nav_dashboard">Dashboard</string>
+    <string name="nav_grades">Grades</string>
+    <string name="nav_assignments">Tasks</string>
+
+    <string name="dashboard_greeting">Good morning, Alex 👋</string>
+    <string name="dashboard_subtitle">Here\'s your academic snapshot</string>
+
+    <string name="gpa_label">Current GPA</string>
+    <string name="gpa_target_label">Target GPA</string>
+
+    <string name="courses_section">Active Courses</string>
+    <string name="upcoming_section">Due Soon</string>
+
+    <string name="grades_title">Grade Tracker</string>
+    <string name="assignments_title">Assignment Manager</string>
+
+    <string name="add_assignment">+ New Assignment</string>
+    <string name="mark_done">Mark Done</string>
+    <string name="overdue">OVERDUE</string>
+
+    <string name="badge_streak">Study Streak</string>
+    <string name="badge_assignments">Task Master</string>
+</resources>

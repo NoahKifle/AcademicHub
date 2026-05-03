@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardBackgroundColor="@color/surface_card"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="0dp"
+    app:strokeColor="@color/divider"
+    app:strokeWidth="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/view_type_band"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@color/teal_400" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tv_type_chip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="PROJECT"
+                    android:textStyle="bold"
+                    android:textSize="9sp"
+                    android:textColor="@color/teal_400"
+                    android:background="@drawable/bg_type_chip_outline"
+                    android:paddingStart="7dp"
+                    android:paddingEnd="7dp"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="3dp" />
+
+                <TextView
+                    android:id="@+id/tv_detail_course"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    tools:text="Mobile Programming"
+                    android:textSize="12sp"
+                    android:textColor="@color/text_secondary"
+                    android:layout_marginStart="8dp" />
+
+                <ImageButton
+                    android:id="@+id/btn_delete_task"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@android:drawable/ic_menu_delete"
+                    app:tint="@color/overdue_red"
+                    android:contentDescription="Delete Task"
+                    android:layout_marginEnd="8dp" />
+
+                <CheckBox
+                    android:id="@+id/cb_detail_done"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/teal_400" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_detail_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Final Project: AcademicHub App"
+                android:textStyle="bold"
+                android:textSize="17sp"
+                android:textColor="@color/text_primary"
+                android:layout_marginTop="6dp" />
+
+            <TextView
+                android:id="@+id/tv_detail_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Build a full Android app following the proposal specifications."
+                android:textSize="13sp"
+                android:textColor="@color/text_secondary"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:layout_marginTop="4dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divider"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout android:layout_width="0dp" android:layout_weight="1"
+                    android:layout_height="wrap_content" android:orientation="vertical"
+                    android:gravity="center_horizontal">
+                    <ImageView android:layout_width="18dp" android:layout_height="18dp"
+                        android:src="@drawable/ic_calendar_small" android:tint="@color/coral_400"
+                        android:contentDescription="due date" />
+                    <TextView android:id="@+id/tv_detail_due" android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" tools:text="Apr 25"
+                        android:textStyle="bold" android:textSize="13sp"
+                        android:textColor="@color/text_primary" android:layout_marginTop="2dp" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Due Date" android:textSize="10sp" android:textColor="@color/text_hint" />
+                </LinearLayout>
+
+                <LinearLayout android:layout_width="0dp" android:layout_weight="1"
+                    android:layout_height="wrap_content" android:orientation="vertical"
+                    android:gravity="center_horizontal">
+                    <ImageView android:layout_width="18dp" android:layout_height="18dp"
+                        android:src="@drawable/ic_timer_small" android:tint="@color/teal_400"
+                        android:contentDescription="study hours" />
+                    <TextView android:id="@+id/tv_detail_hours" android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" tools:text="4.5 hrs"
+                        android:textStyle="bold" android:textSize="13sp"
+                        android:textColor="@color/text_primary" android:layout_marginTop="2dp" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Studied" android:textSize="10sp" android:textColor="@color/text_hint" />
+                </LinearLayout>
+
+                <LinearLayout android:layout_width="0dp" android:layout_weight="1"
+                    android:layout_height="wrap_content" android:orientation="vertical"
+                    android:gravity="center_horizontal">
+                    <ImageView android:layout_width="18dp" android:layout_height="18dp"
+                        android:src="@drawable/ic_star_small" android:tint="@color/amber_400"
+                        android:contentDescription="max points" />
+                    <TextView android:id="@+id/tv_detail_points" android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" tools:text="100 pts"
+                        android:textStyle="bold" android:textSize="13sp"
+                        android:textColor="@color/text_primary" android:layout_marginTop="2dp" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Max Points" android:textSize="10sp" android:textColor="@color/text_hint" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_project_progress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="12dp"
+                android:visibility="gone">
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView android:layout_width="0dp" android:layout_weight="1"
+                        android:layout_height="wrap_content" android:text="Progress"
+                        android:textStyle="bold" android:textSize="12sp" android:textColor="@color/text_secondary" />
+                    <TextView android:id="@+id/tv_progress_label" android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" tools:text="2 / 5 milestones"
+                        android:textStyle="bold" android:textSize="12sp" android:textColor="@color/teal_400" />
+                </LinearLayout>
+
+                <ProgressBar android:id="@+id/pb_project_progress"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent" android:layout_height="7dp"
+                    android:max="5" android:progress="2"
+                    android:progressDrawable="@drawable/progress_amber_rounded"
+                    android:layout_marginTop="4dp" />
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:layout_marginTop="12dp">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_start_timer"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="0dp" android:layout_weight="1" android:layout_height="38dp"
+                    android:text="Start Timer" android:textStyle="bold" android:textSize="12sp"
+                    app:strokeColor="@color/teal_400" app:strokeWidth="1.5dp"
+                    android:textColor="@color/teal_400" app:cornerRadius="10dp"
+                    android:layout_marginEnd="6dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_view_assignment"
+                    android:layout_width="0dp" android:layout_weight="1" android:layout_height="38dp"
+                    android:text="View Details" android:textStyle="bold" android:textSize="12sp"
+                    android:textColor="@color/white" app:backgroundTint="@color/teal_400"
+                    app:cornerRadius="10dp" android:layout_marginStart="6dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
